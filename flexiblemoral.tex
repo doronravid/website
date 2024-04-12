@@ -1,0 +1,1212 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  This Beamer template was created by Cameron Bracken.
+%%  Anyone can freely use or modify it for any purpose
+%%  without attribution.
+%%
+%%  Last Modified: January 9, 2009
+%%
+
+\documentclass[xcolor=x11names,compress]{beamer}
+
+%% General document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx}
+\usepackage{comment} % Allows commenting large blocks using \begin{comment} \end{comment} commands.
+%\usepackage{enumitem}
+
+%%% For Tikz Plots
+\usepackage{xcolor} % For mixing colors.
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+%\pgfplotsset{          
+%	axis line style={gray},
+%         width=1\linewidth,    
+%	height=0.35\linewidth 
+%            }
+% \usepackage{pgffor}
+
+\usepackage{subcaption} 
+\usepgfplotslibrary{fillbetween}
+
+\usetikzlibrary{patterns}
+\usetikzlibrary{arrows}
+\usetikzlibrary{shapes,snakes} % For non-circle nodes
+
+%%% Change Math font for product
+\DeclareSymbolFont{replacement-operators}{OMX}{txex}{m}{n}
+
+\DeclareMathSymbol{\bigprod}{\mathop}{replacement-operators}{"59}
+\DeclareMathSymbol{\smallprod}{\mathop}{replacement-operators}{"51}
+\renewcommand\prod{\mathop{\mathchoice
+  {\bigprod}%
+  {\smallprod}%
+  {\smallprod}%
+  {\smallprod}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[absolute,overlay]{textpos}
+  \setlength{\TPHorizModule}{1mm}
+  \setlength{\TPVertModule}{1mm}
+
+\setbeamertemplate{navigation symbols}{} 
+\setbeamertemplate{itemize items}[circle]
+%% Beamer Layout %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\useoutertheme[subsection=false,shadow]{miniframes}
+\useoutertheme[subsection=false,shadow]{}
+\useinnertheme{default}
+\usefonttheme{serif}
+\usepackage{palatino, comment, color, mdsymbol, eucal, bbding}
+
+% Game environments
+\usepackage{sgamevar}
+\renewcommand{\gamestretch}{2}
+
+\setbeamerfont{title like}{shape=\scshape}
+\setbeamerfont{frametitle}{shape=\scshape}
+
+\setbeamercolor*{lower separation line head}{bg=DeepSkyBlue4} 
+\setbeamercolor*{normal text}{fg=black,bg=white} 
+\setbeamercolor*{alerted text}{fg=red} 
+\setbeamercolor*{example text}{fg=black} 
+\setbeamercolor*{structure}{fg=black} 
+\setbeamercolor{frametitle}{fg=darkblue}
+ 
+\setbeamercolor*{palette tertiary}{fg=black,bg=black!10} 
+\setbeamercolor*{palette quaternary}{fg=black,bg=black!10} 
+
+
+
+\renewcommand{\(}{\begin{columns}}
+\renewcommand{\)}{\end{columns}}
+\newcommand{\<}[1]{\begin{column}{#1}}
+\renewcommand{\>}{\end{column}}
+
+\let\inf\relax \DeclareMathOperator*\inf{\vphantom{p}inf}
+\let\max\relax \DeclareMathOperator*\max{\vphantom{p}max}
+\let\min\relax \DeclareMathOperator*\min{\vphantom{p}min}
+\definecolor{darkblue}{rgb}{0, 0.08, 0.55}
+
+%% Restoring caligraphic font to default
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
+%%Uniform distribution operator
+%\DeclareMathOperator*{\argmax}{}
+\newcommand{\argmax}{\mathrm{argmax}}
+\newcommand{\argmin}{\mathrm{argmin}}
+
+
+%% General Macros.
+\newcommand{\samplepoints}{samples=50}
+\newcommand{\meddef}{samples=200}
+\newcommand{\highdef}{samples=500}
+
+
+\newcommand{\co}{\text{co}}
+\newcommand{\ca}{\text{ca}}
+\newcommand{\ext}{\text{ext}}
+\newcommand{\marg}{\text{marg}}
+\newcommand{\ddd}{\text{ d}}
+\newcommand{\dd}{\text{d}}
+\newcommand{\supp}{\text{supp}}
+\newcommand{\bbE}{\mathbb E}
+\newcommand{\dom}{\text{dom}}
+\newcommand{\inter}{\text{int}}
+\newcommand{\cl}{\text{cl}}
+
+\newcommand{\eff}{\alpha}
+\newcommand{\effb}{\beta}
+\newcommand{\effc}{\gamma}
+\newcommand{\Eff}{\mathcal{A}}
+\newcommand{\minx}{L}%{\underline{x}}
+\newcommand{\maxx}{H}%{\bar{x}}
+\newcommand{\waged}{\chi}
+\newcommand{\uinv}{n}
+
+\newcommand{\acomment}[1]{}
+
+%%Divide slide into four command
+\newcommand\FourQuad[4]{%
+    \begin{minipage}[b][.35\textheight][t]{.47\textwidth}#1\end{minipage}\hfill%
+    \begin{minipage}[b][.35\textheight][t]{.47\textwidth}#2\end{minipage}\\[0.5em]
+    \begin{minipage}[b][.35\textheight][t]{.47\textwidth}#3\end{minipage}\hfill
+    \begin{minipage}[b][.35\textheight][t]{.47\textwidth}#4\end{minipage}%
+}
+\newcommand\HalfandTwoQuad[3]{%
+    \begin{minipage}[b][.35\textheight][t]{.47\textwidth}#1\end{minipage}\hfill%
+    \begin{minipage}[b][.35\textheight][t]{.47\textwidth}#2\end{minipage}\\[0.5em]
+    \begin{minipage}[b][.35\textheight][t]{1\textwidth}#3\end{minipage}%
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+\begin{document}
+\begin{frame}
+\vspace{-0.75cm}
+	\title{{\color{darkblue}\textit{Flexible Moral Hazard Problems}}}
+	\subtitle{}
+
+	\vspace{1cm}
+
+\author{
+%\\ \bigskip
+\begin{minipage}{0.4\textwidth}\centering  
+George Georgiadis\\ \smallskip \centering \footnotesize Northwestern University
+\end{minipage} 
+\begin{minipage}{0.4\textwidth}\centering  
+Doron Ravid\\ \smallskip \centering \footnotesize University of Chicago 
+\end{minipage}
+\\ \bigskip
+\begin{minipage}{0.4\textwidth}\centering  
+Bal\'azs Szentes \\ \smallskip \centering \footnotesize University of Hong Kong
+\end{minipage}
+}
+
+
+
+\bigskip
+	\date{
+		December 2023
+	}
+\titlepage
+\end{frame}
+
+
+\begin{frame}{The Informativeness Principal}
+Classic moral hazard: effort is binary or an interval. \\ \medskip
+\textbf{Main result:} Contracts are motivated by informativeness. \\ \medskip
+\onslide<2->{
+This \textcolor{blue}{\emph{informativeness principle}} is a key tenant of contract theory:\\ \medskip
+}
+
+\onslide<2->{
+\begin{quote}
+``In the late 1970s, Bengt Holmström demonstrated how a principal (e.g., a company’s shareholders) should design an optimal contract for an agent (the company’s CEO), whose action is partly unobserved by the principal. Holmström’s \textcolor{blue}{informativeness principle} stated precisely how this contract should link the agent’s pay to performance-relevant information. Using the basic principal-agent model, he showed how the optimal contract carefully weighs risks against incentives. In later work, Holmström generalised these results to more realistic settings...''
+\end{quote}
+\footnotesize{(The Swedish Academy's 2016 nobel prize press release)}
+}
+
+\end{frame}
+
+
+\begin{frame}{Informativeness Principle: The Issues}
+
+Two implications of informativeness principle:\medskip
+\begin{enumerate}
+\item Need strong assumptions for wage to increase in output.\medskip
+\item Noisier measures $\implies$ lower powered incentives. \bigskip
+\end{enumerate}
+
+\onslide<2->{
+These implications are empirically problematic:\medskip
+\begin{itemize}
+\item Contracts almost always increasing in output. \medskip
+\item Incentives weakly connected to noise (Prendergast 1999). \bigskip
+\end{itemize}
+}
+
+\onslide<3->{Innes (1990): Get monotonicity from free money burning.}
+
+\end{frame}
+
+\begin{frame}{This Paper: Flexible Output Choice}
+We allow agent to choose \emph{any} output distribution. \\ \bigskip
+
+Main results: \medskip
+\begin{itemize}
+\item Contracts motivated by agent's marginal costs.\medskip
+\item FOSD monotone costs $\implies$ increasing contracts. \medskip
+\item Result by omission: Informativeness plays no role.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{}
+	\begin{center}
+		{\color{darkblue} {\huge Two Examples}}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Common Setup for Examples}
+
+A principal (she) contracts with an agent (he).\medskip
+
+\begin{itemize}
+
+\item Compact set $X\subset \mathbb{R}$ of possible outputs.\medskip
+
+\item Principal offers agent a (bounded) contract: $w:X \rightarrow \mathbb{R}$.\medskip
+
+\item Agent can opt out and get $u_0$.\medskip
+
+\item If opts in, agent covertly chooses $\eff \in \Eff \subseteq \Delta (X)$.\medskip
+
+\item Effort costs: $C:\Eff \rightarrow \mathbb{R}_{+}$, increasing in FOSD. \medskip
+
+\item Payoffs: 
+\[
+\text{Principal: } x - w \quad \quad \text{Agent: } u(w) - C(\eff).
+\]
+$u$: strictly increasing, differentiable, unbounded, concave.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Standard Binary Effort Model}
+\begin{textblock}{100}(15,13)
+\[ 
+X = \left[\minx,\maxx\right], \quad \quad \Eff = \{\eff_l,\eff_h\}.
+\]
+\end{textblock}
+\begin{textblock}{100}(11,25)
+\only<2->{
+Suppose principal wants to implement $\eff_h$. \\ \bigskip
+}
+\only<3->{
+Then she offers a contract $w$ that solves:
+}
+\only<3>{
+\begin{align}
+\min_{w(\cdot)} & \int w(x) \eff_h(\dd x)  \notag \\ 
+\text{s.t.} 
+& \int u\circ w(x) (\eff_h - \eff_l) (\dd x) \geq C(\eff_h) - C(\eff_l) \tag{IC}\\
+& \int u\circ w(x) \eff_h (\dd x) - C(\eff_h)\geq u_0. \tag{IR}
+\end{align}
+}
+\only<4->{
+\[
+\min_{w(\cdot)} \int w(x) \eff_h(\dd x) \quad \text{s.t.} \quad \text{(IC) and (IR)}.
+\]
+}
+\only<5->{
+The FOC from this cost minimization problem is:
+\[
+\frac{1}{u^{\prime }\left( w\left( x \right) \right) }=\lambda +\mu \left[
+1-\frac{f_l\left( x \right) }{f_h\left( x \right) }\right]
+\]
+}
+\only<6->{
+So: $w$ is monotone $\iff$ MLRP holds.
+}
+\end{textblock}
+\end{frame}
+
+\begin{frame}{Flexible Binary Output Model}
+\begin{textblock}{100}(15,13)
+\[
+X = \textcolor{blue}{ \left\{ \minx,\maxx \right\}}, \quad \quad \Eff = \textcolor{blue}{\Delta X \equiv [0,1].}
+\]
+\end{textblock}
+\begin{textblock}{100}(11,25)
+\only<2->{
+Suppose also $C$ is convex and differentiable.\\ \medskip
+}
+\only<3-4>{
+Agent's problem is:
+\[
+\max_{\eff \in [0,1]} [\eff u \circ w(\maxx) + (1-\eff) u \circ w(\minx) - C(\eff)].
+\]
+}
+\only<4->{
+Agent's FOC for choosing $\eff \in (0,1)$:
+\[
+u\circ w(\maxx) - u \circ w(\minx) = C'(\eff) \only<5->{\onslide<6->{\iff w(\maxx) = u^{-1}(u\circ w(\minx) + C'(\eff)).}}
+\]
+\onslide<7->{
+Implications:\medskip}
+\begin{itemize}
+\item<8-> Cost minimization is trivial: min $w(\minx)$ s.t. IR.\medskip
+\item<9-> Shape of contract determined by $C'$ and $u$. \medskip
+\item<10-> IC contracts are monotone: 
+\[
+w(\maxx) = u^{-1}(u\circ w(\minx) + C'(\eff)) \geq u^{-1}(u\circ w(\minx)) = w(\minx).
+\]
+\end{itemize}
+}
+\end{textblock}
+\end{frame}
+
+
+\begin{frame}{Our Main Model}
+
+A principal (she) contracts with an agent (he).\medskip
+
+\begin{itemize}
+
+\item Compact set $X\subset \mathbb{R}$ of possible outputs.\medskip
+
+\item Principal offers agent a (bounded) contract: $w:X \rightarrow \mathbb{R}_{+}$.\medskip
+
+\item \textcolor{blue}{Limited liability: $w(\cdot) \geq 0$.}\medskip
+
+\item Agent covertly chooses $\textcolor{blue}{\eff \in \Eff = \Delta (X)}$.\medskip
+
+\item Effort costs: $C:\Eff \rightarrow \mathbb{R}_{+}$, continuous, increasing in FOSD. \medskip
+
+\item Payoffs: 
+\[
+\text{Principal: } x - w \quad \quad \text{Agent: } u(w) - C(\eff),
+\]
+\textcolor{blue}{
+$u$: increasing, continuous, unbounded \& $u(0)=0$.
+}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Assumptions on the Cost}
+
+\onslide<2->{
+\noindent \textbf{Without loss:} $C$ is convex. \\ \medskip
+(if not, replace $\eff$ with cheapest mixing that averages to $\eff$) \\ \bigskip
+}
+\onslide<3->{
+\noindent \textbf{Assumption. (smoothness) }$C$ is \textbf{Gateaux
+differentiable}: every $\eff$ admits a bounded $k_{\eff}:X\rightarrow \mathbb{R}$ s.t. 
+\begin{equation*}
+\lim_{\epsilon \downarrow 0}\frac{1}{\epsilon }\left[ C(\eff +\epsilon (\effb
+ -\eff ))-C(\eff )\right] =\int k_{\eff}\left( x\right) (\effb-\eff)\left( \dd x\right)
+\end{equation*}%
+for all $\effb\in \Eff$. \\ \bigskip
+}
+\onslide<4->{
+\textbf{Notes:}\medskip
+\begin{itemize}
+\item<4-> $k_\alpha(x)$: MC of increasing probability of output $x$. \medskip
+\item<5-> Without loss of generality: Normalize $\inf k_{\eff}(X) = 0$. 
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}{Example 1: Finite Outputs}
+Suppose $X=\{x_1,\ldots,x_N\}$. \\ \bigskip
+Think of $\eff = (\eff_1,\ldots,\eff_N)$ as an element of $\mathbb{R}^{N}$.\\ \bigskip
+Then Gateaux differentiability $\iff$ differentiable. \\ \bigskip
+In this case,
+\[
+k_\eff (x_i) = \frac{\partial C}{\partial \alpha_i} (\eff)  \onslide<2->{- \min_{j=1,\ldots, N}\frac{\partial C}{\partial \alpha_j} (\eff).}
+\]
+\onslide<3->{
+In this case: $C$ convex $\implies$ $C$ differentiable Lebesgue a.e.}
+\end{frame}
+
+
+\begin{frame}{Example 2: Affine Costs}
+Suppose we have an increasing and bounded function,
+\[
+k: X \rightarrow \mathbb{R}_{+},
+\]
+with $k(\min \ X) = 0$, and costs are given by
+\[
+C(\eff) = \int k(x) \eff(\dd x).
+\]
+This cost is convex and differentiable, with derivative
+\[
+k_{\eff} (\cdot) = k(\cdot).
+\]
+\end{frame}
+
+\begin{frame}{Example 3: Transformations of Affine Costs}
+Consider $k$ as before, and let
+\[
+\Psi: \mathbb{R}\rightarrow \mathbb{R}
+\]
+be increasing, convex, differentiable, and $\Psi(0)=0$. Then,
+\[
+C(\eff) = \Psi \left( \int k(x) \eff (\dd x) \right)
+\]
+satisfies our assumptions. The derivative is
+\[
+k_{\eff}(\cdot) = \Psi'\left(\int k(x) \eff (\dd x) \right) k(\cdot).
+\]
+\end{frame}
+
+\begin{frame}
+	\frametitle{}
+	\begin{center}
+		{\color{darkblue} {\huge Cost Minimization}}
+	\end{center}
+\end{frame}
+
+\begin{frame}{First-Order Approach}
+\textbf{Lemma.} For a bounded $v:X\rightarrow \mathbb{R}$, and $\eff \in 
+\Eff$, 
+\begin{equation*}
+\eff \in \arg \max_{\effb\in \Eff}\left[ \int v(x)\effb\left( \dd x\right) -\textcolor{blue}{C(\effb)}\right]
+\end{equation*}%
+if and only if 
+\begin{equation*}
+\eff \in \arg \max_{\effb \in \Eff}\left[ \int v(x) \effb(\dd x) - \textcolor{blue}{\int k_{\eff
+}(x) \effb (\dd x)} \right]
+\end{equation*}%
+(the ``only if'' direction also works if $C$ is not convex)
+\end{frame}
+
+\begin{frame}{Relationship to Standard FOC}
+Consider the problem:
+\[
+\max_{a \in [0,1]} \left[av - c(a)\right]
+\]
+where $v \in \mathbb{R}$ and $c$ is convex and differentiable. \\ \medskip
+\onslide<2->{
+Standard way of writing FOC for optimal $a^* \in (0,1)$ is
+\[
+v - c'(a^*)=0.
+\]
+}% 
+\onslide<3->{%
+An equivalent way of writing the above condition is:
+\[
+a^* \in \argmax_{a \in [0,1]} [av - ac'(a^*)].
+\]
+The lemma generalizes the second formulation. 
+}
+\end{frame}
+
+\begin{frame}{First-Order Approach}
+\textbf{Lemma.} For a bounded $v:X\rightarrow \mathbb{R}$, and $\eff \in 
+\Eff$, 
+\begin{equation*}
+\eff \in \arg \max_{\effb\in \Eff}\left[ \int v(x)\effb\left( \dd x\right) -\textcolor{blue}{C(\effb)}\right]
+\end{equation*}%
+if and only if 
+\begin{equation*}
+\eff \in \arg \max_{\effb \in \Eff}\left[ \int v(x) \effb(\dd x) - \textcolor{blue}{\int k_{\eff
+}(x) \effb (\dd x)} \right]
+\end{equation*}%
+(the ``only if'' direction also works if $C$ is not convex)
+\end{frame}
+
+\begin{frame}{Characterization of IC}
+Say a contract-distribution pair $(w,\eff)$ is \textbf{IC} if
+\[
+\eff \in \argmax_{\effb \in \Eff} \left[\int u\circ w(x) \effb(\dd x) - C(\effb)\right].
+\]
+
+\onslide<2->{
+\textbf{Proposition.} $(w,\eff)$ is IC if and only if a $m \in \mathbb{R}$ exists such that
+\[
+w(x) \leq u^{-1}(k_\eff(x) + m)
+\]
+for all $x$, and with equality $\eff$-almost surely.
+}
+\end{frame}
+
+
+\begin{frame}{}
+\begin{textblock}{105}(11,10)
+\textbf{Proposition.} $(w,\eff)$ is IC if and only if a $m \in \mathbb{R}$ exists such that
+\[
+w(x) \leq u^{-1}(k_\eff(x) + \textcolor<5->{blue}{m})
+\]
+for all $x$, and with equality $\eff$-almost surely.
+\end{textblock}
+\begin{textblock}{105}(11,40)
+\textbf{Proof.} \onslide<2->{
+By Lemma, $(w,\eff)$ is IC if and only if $\eff$ solves
+\[
+\max_{\effb \in \Delta X}\int \left[ u\circ w (x) - k_\eff(x)\right] \effb(\dd x),
+\]
+}
+
+\onslide<3->{
+\noindent or equivalently, the following holds $\eff$-almost surely:
+\[
+\begin{split}
+u\circ w (x) - k_\eff(x) & = \sup (u\circ w - k_\eff )(X) 
+\onslide<4->{\\ \iff  w(x) & = u^{-1} \left( k_\eff(x) + \textcolor<5->{blue}{\sup (u\circ w - k_\eff )(X)} \right).}
+\end{split}
+\]
+}
+\end{textblock}
+\end{frame}
+
+\begin{frame}{}
+\begin{center}
+\end{center}
+\begin{textblock}{105}(11,10)
+\textbf{Proposition.} $(w,\eff)$ is IC if and only if a $m \in \mathbb{R}$ exists such that
+\[
+w(x) \leq \textcolor{blue}{u^{-1}(k_\eff(x) + m) =: w_{m,\alpha}(x)}
+\]
+for all $x$, and with equality $\eff$-almost surely.
+\end{textblock}
+
+\begin{textblock}{105}(11,35)
+\only<2-4>{
+\begin{figure}
+\centering{}    \begin{tikzpicture}[scale=0.8]
+			\begin{axis} 
+				[
+					\samplepoints,
+%					ticks=none,
+					ymax=1.1,
+					ymin=-0.03,
+					xmin=0,
+					xmax=1.2,
+					axis on top=false,
+					axis x line = middle,
+%					axis x line = none,
+%					axis line style={-},
+%					axis y line = none,
+%					every inner x axis line/.append style={|-|},
+					axis y line = middle,
+					axis line style={gray},	
+					xlabel=$x$,
+					ylabel=$ $,
+%					every axis x label/.style= {at={(ticklabel cs:0.5)},anchor=center},					
+%				    xtick={0,1},
+				    xtick= \empty,				    	
+%				    xticklabels={$0$,$1$},
+%				    ytick={0,1},
+%				    yticklabels={$0$,$1$}
+				    ytick=\empty,
+%				    yticklabels={}
+				]
+				
+\only<1-3>{
+	\addplot [blue, line width=2, domain=0:1] {2*(1/8 + (x - 0.5)^3)} node[right]{$w_{m_1,\eff}$};
+
+	\addplot [blue, line width=2, domain=0:1] {2*(2/8 + (x - 0.5)^3)} node[right]{$w_{m_2,\eff}$};
+	
+
+	\addplot [blue, line width=2, domain=0:1] {2*(3/8 + (x - 0.5)^3)} node[right]{$w_{m_3,\eff}$};
+}
+
+\only<4->{
+	\addplot [blue, line width=2, domain=0:1] {2*(2/8 + (x - 0.5)^3)} node[right]{$w_{m,\eff}$};
+	}
+	
+	
+%	\addplot+ [no marks, red, line width=2] coordinates {(0,0) (1/4,15/32) (5/8,15/32) (3/4,17/32) (1,17/32)};
+
+\only<3->{
+\addplot+ [no marks, solid, violet, line width=2] coordinates {(0.25,0) (0.75,0)} node[above]{$\supp (\eff)$};
+}
+
+\only<3->{
+	
+	\addplot+ [no marks, red, solid, line width=2] coordinates {(3/4,17/32) (1,20/32)} node[right] {$w$};
+
+	\addplot [red, line width=2, dashed, domain=0.25:0.75] {2*(2/8 + (x - 0.5)^3)};
+	
+	\addplot+ [no marks, red, solid, line width=2] coordinates {(0,0) (1/4,15/32)};
+}
+	\end{axis}
+\end{tikzpicture}
+\end{figure} 
+
+}
+
+\only<5->{
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{figure}
+\centering{}    \begin{tikzpicture}[scale=0.8]
+			\begin{axis} 
+				[
+					\samplepoints,
+%					ticks=none,
+					ymax=1.1,
+					ymin=-0.03,
+					xmin=0,
+					xmax=1.2,
+					axis on top=false,
+					axis x line = middle,
+%					axis x line = none,
+%					axis line style={-},
+%					axis y line = none,
+%					every inner x axis line/.append style={|-|},
+					axis y line = middle,
+					axis line style={gray},	
+					xlabel=$x$,
+					ylabel=$ $,
+%					every axis x label/.style= {at={(ticklabel cs:0.5)},anchor=center},					
+%				    xtick={0,1},
+				    xtick= \empty,				    	
+%				    xticklabels={$0$,$1$},
+%				    ytick={0,1},
+%				    yticklabels={$0$,$1$}
+				    ytick=\empty,
+%				    yticklabels={}
+				]
+				
+
+\only<10->{
+	\addplot [blue, line width=2, domain=0:1] {2*(1/8 + (x - 0.5)^3)} node[right]{$\textcolor{violet}{w_{m^{*}_{\eff},\eff}}$};
+	}
+	
+
+\only<1-6>{
+	\addplot [blue, line width=2, domain=0:1] {2*(2/8 + (x - 0.5)^3)} node[right]{$w_{m,\eff}$};
+	}
+\only<7-9>{
+	\addplot [blue, line width=2, domain=0:1] {2*(2/8 + (x - 0.5)^3)} node[above right]{$w_{m,\eff}$}
+};
+
+
+%	\addplot+ [no marks, red, line width=2] coordinates {(0,0) (1/4,15/32) (5/8,15/32) (3/4,17/32) (1,17/32)};
+
+\addplot+ [no marks, solid, violet, line width=2] coordinates {(0.25,0) (0.75,0)} node[above]{$\supp (\eff)$};
+
+\only<4-6>{
+	
+	\addplot+ [no marks, red, solid, line width=2] coordinates {(3/4,17/32) (1,20/32)} node[right] {$w$};
+
+	\addplot [red, line width=2, dashed, domain=0.25:0.75] {2*(2/8 + (x - 0.5)^3)};
+	
+	\addplot+ [no marks, red, solid, line width=2] coordinates {(0,0) (1/4,15/32)};
+}
+	
+\only<7-9>{
+	\addplot [red, line width=2, dashed, domain=0:1] {2*(2/8 + (x - 0.5)^3)} node[below right]{$=w$};
+}
+
+\only<10->{
+	\addplot [red, line width=2, dashed, domain=0:1] {2*(1/8 + (x - 0.5)^3)};% node[below right]{$=w$};
+}
+	
+	
+%	\node [circle, fill=violet, scale=0.7] at (axis cs:3/8,0){};
+
+
+			\end{axis}
+\end{tikzpicture}
+\end{figure} 
+
+\end{column}
+\begin{column}{0.5\textwidth}
+\onslide<5->{
+\textbf{Implications:} \medskip
+\begin{enumerate}[(i)]
+\item<6-> wlog: set $w=w_{m,\eff}$, optimize $m$. 
+\item<8-> Every $\eff$ is implementable.
+\item<9-> Cost minimizing $m$ is:
+\[
+m^{*}_{\eff} = - \inf k_{\eff}(X) = 0.
+\]
+
+\end{enumerate}
+}
+\end{column}
+\end{columns}
+}
+
+\end{textblock}
+
+\end{frame}
+
+
+\begin{frame}{Monotone Contracts}
+\textbf{Claim.} $C$ is FOSD monotone $\iff$ $w_{m,\eff}$ is increasing $\forall \eff, m$. \\ \bigskip
+
+\onslide<2->{
+(\textbf{Fact.} $C$ is FOSD monotone $\iff$ $k_{\eff}$ is increasing $\forall \eff$).\\ \bigskip
+}
+
+\onslide<3->{
+\textbf{Proof of Claim.} 
+Recall,
+\[
+w_{m,\eff}(x) = u^{-1}( k_{\alpha}(x) + m).
+\]
+}
+
+\onslide<4->{
+Therefore,
+\[
+\begin{split}
+w_{m,\eff} \text{ is increasing }\forall \eff,m  
+& \iff k_{\eff} \text{ is increasing } \forall \eff
+\onslide<5->{\\ & \iff C \text{ is FOSD monotone}.}
+\end{split}
+\]
+}
+
+\onslide<4->{\textbf{Explanation: }}\only<4>{because $u^{-1}$ is increasing.}\only<5>{by the Fact .}
+
+\end{frame}
+
+
+
+
+\begin{frame}{}
+\textbf{Proposition.} $(w,\eff)$ is IC if and only if a $m \in \mathbb{R}$ exists such that
+\[
+w(x) \leq u^{-1}(k_\eff(x) + m) =: w_{m,\eff}(x)
+\]
+for all $x$, and with equality $\eff$-almost surely. \\ \bigskip
+
+
+\textbf{Implications:} \medskip
+\begin{enumerate}[(i)]
+\item Without loss for principal to offer $w_{m,\eff}$ for some $m$. \medskip
+\item A cheapest contract implementing $\eff$ is $w_{m^{*}_{\eff},\eff}$ for 
+\[
+m^{*}_{\eff} = - \inf k_{\eff}(X) = 0.
+\]
+\item FOSD monotone $C \implies$  wage is increasing without loss.
+\end{enumerate}
+
+
+\end{frame}
+
+\begin{frame}{Example 2: Affine Costs}
+Suppose we have an increasing and bounded function,
+\[
+k: X \rightarrow \mathbb{R}_{+},
+\]
+with $k(\inf \ X) = 0$, and costs are given by
+\[
+C(\eff) = \int k(x) \eff(\dd x).
+\]
+This cost is convex and differentiable, with derivative
+\[
+k_{\eff} (\cdot) = k(\cdot).
+\]
+\end{frame}
+
+\begin{frame}{Example 2: Affine Costs (continued)}
+In this example, $(w,\eff)$ is IC if and only if an $m$ exists s.t.
+\[
+w(x) \leq w_{m,\eff}(x)= u^{-1}(k(x) + m),
+\]
+for all $x$, with equality $\eff$-almost surely.\\ \bigskip
+\onslide<2->{
+Thus, cost minimizing wage for \emph{any} $\eff$ is
+\[
+w^{*}(\cdot) = u^{-1}\circ k(\cdot).
+\]
+}
+\end{frame}
+
+\begin{frame}{Example 2: Affine Costs (continued)}
+\begin{itemize}
+\item<1-> Notice agent's utility from any $\eff$ is zero:
+\[
+\begin{split}
+\onslide<2->{\int u\circ w^{*}(x) \eff (\dd x) - C(\eff)}
+\onslide<3->{& = \int u\circ u^{-1}(k(x)) \eff (\dd x) - \int k(x) \eff (\dd x) }
+\onslide<4->{\\ & = \int k(x) \eff (\dd x) - \int k(x) \eff (\dd x) =0.}
+ \end{split}
+\]
+
+\item<5-> In this case, a deterministic output are optimal. \\ \medskip
+\onslide<6->{\textbf{Explanation:} Principal's problem is:
+\[
+\max_{\eff \in \Delta X} \int \left[x - w^*(x)\right]\eff(\dd x).
+\]
+}
+\onslide<7->{So, optimal to implement a deterministic output $x^*$ s.t.
+\[
+x^* \in \argmax_{x \in X}\left[x - w^*(x))\right].
+\]
+}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Example 3: Transformations of Affine}
+Consider $k$ as before, and let
+\[
+\Psi: \mathbb{R}_{+}\rightarrow \mathbb{R}_{+}
+\]
+be increasing, convex, differentiable, and $\Psi(0)=0$. Then,
+\[
+C(\eff) = \Psi \left( \int k(x) \eff (\dd x) \right)
+\]
+satisfies our assumptions. The derivative is
+\[
+k_{\eff}(\cdot) = \Psi'\left(\int k(x) \eff (\dd x) \right) k(\cdot).
+\]
+\end{frame}
+
+\begin{frame}{Example 3: Transformations of Affine (cont.)}
+In this example, $(w,\eff)$ is IC if and only if an $m$ exists s.t.
+\[
+w(x) \leq w_{m,\eff}(x)= u^{-1}\left(\Psi'\left(\int k(y) \eff (\dd y) \right) k(x) + m\right),
+\]
+for all $x$, with equality $\eff$-almost surely.\\ \bigskip
+\onslide<2->{
+Given $\eff$, a cost minimizing wage is
+\[
+w_{0,\eff}(\cdot) = u^{-1}\left(\Psi'\left(\int k(y) \eff (\dd y) \right) k(\cdot)\right).
+\]
+Wage depends on $\eff$, so principal's problem more complex. 
+}
+\end{frame}
+
+\begin{frame}
+	\frametitle{}
+	\begin{center}
+		{\color{darkblue} {\huge Profit Maximization}}
+	\end{center}
+\end{frame}
+
+\begin{frame}{The Principal's Problem}
+Let $w_{\eff}:=w_{0,\eff}$ be the cost minimizing wage implementing $\eff$. \\ \bigskip
+
+The principal's problem is:
+\[
+\max_{\eff \in \Delta X} \left[\int  x \eff (\dd x)  - \int w_{\eff}(x) \eff (\dd x)\right].
+\]
+\end{frame}
+
+\begin{frame}{Additional Assumptions}
+\textbf{Nice Agent's Payoffs.} $\uinv:=u^{-1}$ is continuously differentiable.\\ \bigskip
+
+\onslide<2->{
+\textbf{Continuous Derivative.} $k_{\eff}$ is continuous, and $\eff \mapsto k_{\eff}$ is weak*-supnorm continuous. \\ \bigskip
+}
+
+\onslide<3->{
+\textbf{2nd Order Differentiability.} Every $\eff$ admits a continuous function $h_{\eff}: X \times X \rightarrow \mathbb{R}$ such that for all $\effb$,
+\[
+\lim_{\epsilon\rightarrow 0} \frac{1}{\epsilon} \left[k_{\eff+\epsilon(\effb - \eff)}(\cdot) - k_{\eff}(\cdot) \right] = \int h_{\eff}(x,\cdot) (\effb - \eff)(\dd x),
+\]
+where convergence is in the supnorm.\\ \bigskip
+}
+\onslide<4->{For finite $X$: last two assumptions$\iff$twice differentiability.}
+\end{frame}
+
+\begin{frame}{Principal First Order Condition}
+Define the function $\waged:X\rightarrow\mathbb{R}$,
+\[
+\waged_{\eff} (x) = \int h_{\eff}(x,y) (\uinv ' \circ k_{\eff})(y) \eff(\dd y).
+\]
+
+\onslide<2->{
+\textbf{Theorem.} \\ \medskip A profit maximizing $\eff^*$ exists. Moreover, $\eff^*$ must solve
+\[
+\max_{\eff \in \Delta X} \int \left[x - w_{\eff^*}(x) - \waged_{\eff^*}(x)\right] \eff(\dd x).
+\]
+}
+\end{frame}
+
+\begin{frame}{Nice Profit Maximizing Distributions}
+For every $\eff$, let 
+\[
+\pi_{\eff}(x) := x - w_{\eff}(x) - \waged_{\eff}(x).
+\]
+
+\onslide<2->{
+\textbf{Corollary.} Suppose $X = [\minx,\maxx]$ and $\eff^*$ maximizes profits. Then,\medskip
+\begin{enumerate}[(i)]
+\item<3-> If $\pi_{\eff}$ is strictly \emph{quasiconcave} $\forall \eff$, then $|\supp \ \eff^*|=1$. \medskip
+
+\item<4-> If $\pi_{\eff}$ is strictly \emph{quasiconvex} $\forall \eff$, then $\supp \ \eff^*\subseteq\{\minx,\maxx\}.$ \medskip
+
+\item<5-> If $w_\eff + \waged_\eff$ is non-affine analytic $\forall\eff$, $\supp(\eff^*)$ is countable. \bigskip
+
+\end{enumerate}
+}
+
+\end{frame}
+
+\begin{frame}{Discrete Distributions and Bonuses}
+
+\begin{textblock}{105}(11,15)
+\textbf{Remark.} Suppose $X=[\minx,\maxx]$, $C$ is FOSD monotone, and \\ \medskip $\supp(\eff)$ is countable. Then,
+\[
+w(x) = w_{\eff}\left(\max\left\{y \in \supp (\eff) \cup \{\minx\}: y \leq x\right\}\right)
+\]
+is a cost minimizing contract that implements $\eff$.
+\end{textblock}
+
+\begin{textblock}{105}(11,45)
+\begin{figure}
+\centering{}    \begin{tikzpicture}[scale=0.8]
+			\begin{axis} 
+				[
+					\samplepoints,
+%					ticks=none,
+					ymax=0.6,
+					ymin=-0.03,
+					xmin=-0.03,
+					xmax=1.1,
+					axis on top=false,
+					axis x line = middle,
+%					axis x line = none,
+%					axis line style={-},
+%					axis y line = none,
+%					every inner x axis line/.append style={|-|},
+					axis y line = middle,
+					axis line style={gray},	
+					xlabel=$x$,
+					ylabel=$ $,
+%					every axis x label/.style= {at={(ticklabel cs:0.5)},anchor=center},					
+%				    xtick={0,1},
+				    xtick= \empty,				    	
+%				    xticklabels={$0$,$1$},
+%				    ytick={0,1},
+%				    yticklabels={$0$,$1$}
+				    ytick=\empty,
+%				    yticklabels={}
+				]
+				
+
+	\addplot [blue, line width=2, domain=0:1] {2*(1/8 + (x - 0.5)^3)} node[right]{$w_{\eff}$};
+
+
+	\addplot+ [no marks, red, solid, line width=2] coordinates {(0,0) (1/4,0) (1/4,7/32) (3/4,7/32) (3/4,9/32) (1,9/32)} node[right]{$w$};
+	
+	\node [circle, fill=violet, scale=0.7] at (axis cs:0,0){};
+	\node [circle, fill=violet, scale=0.7] at (axis cs:0.25,0){};
+	\node [circle, fill=violet, scale=0.7] at (axis cs:0.75,0){};
+	\node[no marks, violet] at (axis cs:0.6,0.03){$\supp (\eff)$};
+	\addplot+ [no marks, violet, dashed, line width=2] coordinates {(3/4,0) (3/4,9/32)};
+
+	
+	\end{axis}
+\end{tikzpicture}
+\end{figure} 
+
+
+\end{textblock}
+
+\end{frame}
+
+
+\begin{frame}{Example 3: Transformations of Affine (cont.)}
+Consider again the cost function
+\[
+C(\eff) = \Psi \left( \int k(x) \eff (\dd x) \right),
+\]
+and suppose $\Psi$ is twice continuously differentiable. \\ \bigskip
+Then,
+\[
+h_{\eff}(x,y) = \Psi''\left( \int k(z) \eff (\dd z)\right) k(x)k(y).
+\]
+\onslide<2->{
+So,
+\[
+\waged_{\eff}(x) = \textcolor{gray}{\left[\int \Psi''\left( \int k(z) \eff (\dd z)\right) \uinv'\left(\Psi'\left( \int k(z) \eff (\dd z)\right) \right)(k(y))^2 \eff(\dd y)\right]}k(x).
+\]
+}
+\end{frame}
+
+\begin{frame}{Example 3: Transformations of Affine (cont.)}
+Hence, the Theorem implies $\eff^*$ is optimal only if 
+\[
+\supp \ \eff^* \subseteq \argmax_{x \in X} \left[x - w_{\eff^*}(x) - \waged_{\eff^*}(x)\right],
+\]
+where \bigskip
+\begin{itemize}
+\item $w_{\eff^*}(x) = \uinv\bigg(\Psi'\left( \int k(z) \eff^*(\dd z) \right)k(x) \bigg)$, \bigskip
+\item $\waged_{\eff^*}(x) = \left[\text{positive stuff that depends on }\eff^*\right] k(x). $
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Specializing Example 3}
+Suppose:
+\[
+X=[0,1],\quad 
+u(y) = y^\rho, \quad 
+k(x) = x^{\gamma}\quad 
+\Psi(a) = \frac{a^{1+\lambda}}{1+\lambda},
+\]
+where $\gamma, \lambda >0$, and $\rho \in (0,1)$. \onslide<2->{Then,
+\[
+w_{\eff}(x) = [\text{positive stuff w/o }x ] \ x^{\frac{\gamma}{\rho}}, \quad 
+\waged_{\eff}(x) = [\text{positive stuff w/o }x ] \ x^{\gamma}.
+\]
+}
+
+\onslide<3->{
+So for non-degenerate $\eff$, $\pi_{\eff}(x)=x - w_{\eff}(x) - \waged_{\eff}(x)$ is \medskip
+\begin{itemize}
+\item<4-> strictly concave if $\gamma \geq 1 (>\rho)$.\medskip
+\item<5-> strictly convex if $\gamma \leq \rho$. \medskip
+\item<6-> non-constant and analytic for all parameters.
+\end{itemize}
+}
+
+\end{frame}
+
+\begin{frame}{Specializing Example 3: Concave Case}
+Suppose $\gamma \geq 1$, so $\pi_{\eff}$ is strictly concave. \\ \bigskip
+By Corollary: only deterministic distributions can be optimal. \\ \bigskip
+\onslide<1->{
+For $x \in X=[0,1]$, let $\delta_{x}$ be deterministic distribution yielding $x$.\\ \bigskip
+}
+
+\onslide<1->{
+Calculating $w_{\delta_{x}}(x) = x^{(1+\lambda)\frac{\gamma}{\rho}}$, we get $x^*$ is optimal iff
+\[
+\max_{x\in X} \left[x - x^{(1+\lambda)\frac{\gamma}{\rho}}\right]
+\]
+}
+
+\onslide<1->{
+Objective is concave, so can use FOC to get solution:
+\[
+x^* = \left[(1+\lambda)\frac{\gamma}{\rho}\right]^{\frac{1}{1-(1+\lambda)\frac{\gamma}{\rho}}}.
+\]
+}
+\end{frame}
+
+
+\begin{frame}{Specializing Example 3: Convex Case}
+Suppose $\gamma \leq \rho$, so $\pi_{\eff}$ is strictly convex.\\ \bigskip
+By Corollary: optimal $\eff^*$ supported on $\{0,1\}$. \\ \bigskip
+\onslide<1->{
+For $p \in [0,1]$, let $\eff_{p} = p\delta_1 + (1-p)\delta_0$. \\ \bigskip
+}
+\onslide<1->{
+In this case $w_{\eff_p}(0) = 0$ and $w_{\eff_p}(1) = p^{\lambda/\rho}$, so optimal $p^*$ solves
+\[
+\max_{p \in [0,1]} \left[p - p^{\frac{\lambda + \rho}{\rho}}\right].
+\]
+}
+\onslide<1->{
+Again, objective is concave, so FOC gives the solution:
+\[
+p^* = \left[\frac{\rho/\lambda }{1 + \rho/\lambda} \right]^{\rho/\lambda}.
+\]
+}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{}
+	\begin{center}
+		{\color{darkblue} {\huge Non-Smooth Costs}}
+	\end{center}
+\end{frame}
+
+
+
+\begin{frame}{Non-Smooth Costs}
+\textbf{Maintain:} $C$ is convex and continuous. \\ \bigskip
+\textbf{Drop:} $C$ is Gateaux differentiable. \\ \bigskip
+
+In this case, can use \textbf{directional derivative}:
+
+\[
+\begin{split}
+d^{+}_{\eff}C: & \Delta X \rightarrow \mathbb{R} \cup \{\infty\},\\
+\effb & \mapsto \lim_{\epsilon\searrow0}\frac{1}{\epsilon}\left[C(\eff+\epsilon(\effb - \eff)) - C(\eff) \right].
+\end{split}
+\]
+(convexity of $C$ ensures above limit is well-defined).
+
+\end{frame}
+
+\begin{frame}{Non-Differentiable First-Order Approach}
+\textbf{Lemma*.} For a bounded $v:X\rightarrow \mathbb{R}$, and $\eff \in 
+\Eff$, 
+\begin{equation*}
+\eff \in \arg \max_{\effb\in \Eff}\left[ \int v(x)\effb\left( \dd x\right) -C(\effb)\right]
+\end{equation*}%
+if and only if 
+\begin{equation*}
+\eff \in \arg \max_{\effb \in \Eff}\left[ \int v(x) \effb(\dd x) - d^{+}_{\eff}C(\effb) \right]
+\end{equation*}%
+\onslide<2->{
+Unfortunately, not nearly as useful without differentiability. 
+}
+\end{frame}
+
+
+\begin{frame}{Implementability}
+
+Say $\eff$ is \textbf{implementable} if $(w,\eff)$ is IC for some $w \in W$. \\ \bigskip
+
+\textbf{Theorem 2.} The implementable distributions are dense in $\Delta X$.\\ \bigskip
+\onslide<2->{
+\textbf{Proof.}  \\ \medskip
+If $X$ is finite, $C$ is differentiable almost everywhere. \\ \medskip 
+}\onslide<3->{
+For infinite $X$, show: \medskip
+\begin{itemize}
+\item Embed $\Delta X$ in $L^{2}(X)$. \\ \medskip
+\item Show $\eff$ is implementable if $\partial_{L^2} C(\eff) \neq \varnothing$.\\ \medskip
+\item Bronsted-Rockafellar: $\partial_{L^2} C(\eff) \neq \varnothing$ holds for a dense set.
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}{Monotonicity}
+\textbf{Theorem 3.} Suppose $C$ is FOSD monotone. If $(w,\eff)$ is IC, then
+\[
+\bar{w}(x) = \sup_{y \leq x} w(y)
+\]
+is monotone, $\bar{w}$ = $w$ $\eff$-almost surely, and $(\bar{w},\eff)$ is IC. \\ \bigskip
+\end{frame}
+
+\begin{frame}{Montonicity Proof Sketch}
+Suppose $X$ is finite. Every $\effb$ admits a $\effc_{\effb}$ s.t. $\effb \succeq_{FOSD} \effc_{\effb}$ and 
+\[
+\int \bar{w}(x) \effb(\dd x) = \int w(x) \effc_{\effb}(\dd x).
+\]
+\onslide<2->{
+Therefore, every $\effb$ has
+}
+\[
+\begin{split}
+\onslide<2->{
+\int \bar{w}(x) \only<2-5>{\effb}\only<6>{\textcolor{blue}{\eff}} (\dd x) - C(\only<2-5>{\effb}\only<6>{\textcolor{blue}{\eff}}) 
+& \leq \int w(x) \effc_{\only<2-5>{\effb}\only<6>{\textcolor{blue}{\eff}}} (\dd x) - C(\effc_{\only<2-5>{\effb}\only<6>{\textcolor{blue}{\eff}}}) 
+}
+\onslide<3->{
+\\ & \leq \int w(x) \eff (\dd x) - C(\eff) 
+}
+\onslide<4->{
+\leq \int \bar{w}(x) \eff (\dd x) - C(\eff).
+}
+\end{split}
+\]
+\onslide<5->{So, $(\bar{w},\eff)$ is IC.}
+\onslide<6->{Setting $\effb = \eff$ above gives $\bar{w}=w$ $\eff$-almost surely.\\}
+\onslide<3>{(because $(w,\eff)$ is IC)}
+\end{frame}
+
+\begin{frame}
+	\frametitle{}
+	\begin{center}
+		{\color{darkblue} {\huge Conclusion}}
+	\end{center}
+\end{frame}
+
+
+\begin{frame}{Related Literature}
+\begin{itemize}
+\item \textbf{Less general flexible models}: Holmstrom and Milgrom (1987), Diamond (1998), Mirrlees and Zhou (2006), Hebert (2018), Bonham (2021), Mattsson and Weibull (2022), Bonham and Riggs-Cragun (2023). \bigskip
+
+\item \textbf{Flexible Monitoring:} Georgiadis and Szentes (2020), Mahzoon, Shourideh, and Zetlin-Joines (2022), Wong (2023). \bigskip
+
+\item \textbf{Robust contracting:} Carroll (2015), Antic (2022), Antic and Georgiadis (2022), Carroll and Walton (2022).
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Flexible Moral Hazard Problems}
+We showed that in smooth \& flexible moral hazard problems:\medskip
+\begin{itemize}
+\item Parameters driving contract: $k_\alpha$ and $u$.\medskip
+\item Cost minimization is trivial. \medskip
+\item Every distribution can be implemented. \medskip
+\item Wages are monotone without loss. \bigskip
+\end{itemize}
+\onslide<2->{
+Also obtained results about principal optimality.\medskip
+\begin{itemize}
+\item First order approach is valid. \medskip
+\item Optimality of single, binary, and discrete distributions. 
+\end{itemize}
+}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{}
+	\begin{center}
+		{\color{darkblue} {\huge Thanks!}}
+	\end{center}
+\end{frame}
+
+
+\end{document}
